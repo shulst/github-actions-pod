@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mssql-db-test-imports:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd#2024!
+      - MSSQL_PID=Developer
+      - MSSQL_MEMORY_LIMIT_MB=4096
+      - MSSQL_ENCRYPT=OPTIONAL
+    ports:
+      - "40000:1433"
+    volumes:
+      - mssql-db-test-imports:/var/opt/mssql
+      # Uncomment the following lines if you want to use SSL
+      # - /mnt/swarm-data/environments/development/certs/dev.cert:/var/opt/mssql/certs/dev.cert:ro
+      # - /mnt/swarm-data/environments/development/certs/dev.key:/var/opt/mssql/certs/dev.key:ro
+    cap_add:
+      - SYS_ADMIN
+    # Uncomment the following line if you want to use the host network
+    # network_mode: "host"
+
+volumes:
+  mssql-db-test-imports:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.2.42,rw,vers=3
+      device: ":/swarm01-data/service/mssql-db-test-imports/"
+
+# Uncomment the following section if you want to define a custom network
+# networks:
+#   default:
+#     external:
+#       name: host

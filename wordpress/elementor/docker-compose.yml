@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: egu4EPE.jkt5dzw6hpe
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: CXT3fpq*zhb6ejk@cfe
+    networks:
+      - wordpress_net
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: CXT3fpq*zhb6ejk@cfe
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - wordpress_net
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+#  elementor-installer:
+#    image: wordpress:cli
+#    volumes:
+#      - wordpress_data:/var/www/html
+#    networks:
+#      - wordpress_net
+#    command: >
+#      /bin/sh -c "
+#      wp plugin install elementor --activate --allow-root &&
+#      wp plugin list --allow-root
+#      "
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+
+networks:
+  wordpress_net:
+    driver: overlay
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.2.42,rw,vers=3
+      device: ":/swarm01-data/service/mysql-elementor/"
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.2.42,rw,vers=3
+      device: ":/swarm01-data/service/wp-elementor/"

@@ -1,0 +1,23 @@
+repo1:
+  branches:
+    main:
+      environment: production
+      domain: repo1.com
+    develop:
+      environment: development
+      domain: dev.repo1.com
+    "feature/*":
+      environment: staging
+      domain: "{branch}.stg.repo1.com"
+    "hotfix/*":
+      environment: staging
+      domain: "{branch}.hotfix.repo1.com"
+
+repo2:
+  branches:
+    main:
+      environment: production
+      domain: repo2.com
+    "feature/*":
+      environment: staging
+      domain: "{branch}.stg.repo2.com"

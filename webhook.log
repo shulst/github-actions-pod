@@ -1,0 +1,7 @@
+2024/08/15 13:39:30 Error reading config file: open /config/edge-config.yaml: no such file or directory
+2024/08/15 13:39:30 Error reading repo configs file: open /config/branch-environment-mapping.yaml: no such file or directory
+2024/08/15 13:40:13 Repository not found in configuration: 
+2024/08/15 13:41:30 Error writing config file: open /config/edge-config.yaml: no such file or directory
+2024/08/15 13:41:57 Route updated for repo: repo1, branch: main, environment: production, domain: www.repo1.com
+2024/08/15 13:43:04 Route updated for repo: repo1, branch: feature/login, environment: development, domain: feature-login.dev.repo1.com
+2024/08/15 13:45:39 Route updated for repo: repo1, branch: feature/login, environment: staging, domain: feature-login.stg.repo1.com

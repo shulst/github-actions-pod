@@ -1,0 +1,11 @@
+routes:
+    - repo: repo1
+      branch: main
+      environment: production
+      domain: www.repo1.com
+      service: repo1_main_production_web
+    - repo: repo1
+      branch: feature/login
+      environment: staging
+      domain: feature-login.stg.repo1.com
+      service: repo1_feature-login_staging_web

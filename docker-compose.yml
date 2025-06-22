@@ -1,0 +1,8 @@
+version: '3'
+services:
+  github-actions:
+    build: .
+    volumes:
+      - /path/to/nfs/config:/config
+    ports:
+      - "8080:8080"

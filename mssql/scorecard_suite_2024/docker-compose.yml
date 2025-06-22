@@ -1,0 +1,27 @@
+version: '3.8'
+
+# Stack name: mssql_2024
+
+services:
+  scorecard_suite_db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd#2024!
+      - MSSQL_PID=Developer
+      - MSSQL_MEMORY_LIMIT_MB=4096
+      - MSSQL_ENCRYPT=OPTIONAL
+    ports:
+      - "40001:1433"
+    volumes:
+      - mssql-db-scorecard_suite_2024:/var/opt/mssql
+    cap_add:
+      - SYS_ADMIN
+
+volumes:
+  mssql-db-scorecard_suite_2024:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.2.42,rw,vers=3
+      device: ":/swarm01-data/service/mssql-db-scorecard_suite_2024/"
