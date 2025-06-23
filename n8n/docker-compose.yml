@@ -20,6 +20,9 @@ services:
     restart: unless-stopped
     volumes:
       - /mnt/swarm-data/service/n8n:/home/node/.n8n
+    secrets:
+      - n8n_password
+      - postgres-n8n_password
   db:
     image: postgres:12
     environment:
@@ -29,7 +32,11 @@ services:
     volumes:
       - /mnt/swarm-data/service/postgres-n8n:/var/lib/postgresql/data
     restart: unless-stopped
+    secrets:
+      - postgres-n8n_password
 
-volumes:
-  n8n_data:
-  db_data:
+secrets:
+  n8n_password:
+    external: true
+  postgres-n8n_password:
+    external: true
