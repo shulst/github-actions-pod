@@ -5,12 +5,15 @@ services:
     image: portainer/agent:lts
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /:/host
+    environment:
+      CAP_HOST_MANAGEMENT: "1"
     networks:
       - agent_network
     deploy:
       mode: global
       placement:
-        constraints: [node.platform.os == linux]
+        constraints: [ node.platform.os == linux ]
 
   portainer:
     image: portainer/portainer-ee:lts
