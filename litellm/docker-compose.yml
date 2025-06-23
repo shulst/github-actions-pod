@@ -10,6 +10,8 @@ services:
     volumes:
       - /mnt/swarm-data/service/postgres-litellm:/var/lib/postgresql/data
     restart: unless-stopped
+    secrets:
+      - postgres-litellm
 
   litellm:
     image: ghcr.io/berriai/litellm:main-latest
