@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  registry:
+    image: registry:2
+    ports:
+      - published: 5000
+        target: 5000
+    volumes:
+      - /mnt/swarm-data/service/registry:/var/lib/registry
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
