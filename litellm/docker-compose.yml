@@ -1,0 +1,29 @@
+version: '3.13'
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: litellm
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-litellm
+      POSTGRES_DB: litellm
+    volumes:
+      - /mnt/swarm-data/service/postgres-litellm:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm-proxy
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://litellm:litellm@postgres:5432/litellm
+      - LITELLM_MASTER_KEY=sk-1234
+      - LITELLM_SALT_KEY=sk-5678   # Optional, but recommended for encryption
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+
+secrets:
+  postgres-litellm:
+    external: true
