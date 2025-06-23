@@ -24,6 +24,8 @@ services:
       - portainer_data:/data
     networks:
       - agent_network
+      - net_ens18
+      - net_ens19
     deploy:
       mode: replicated
       replicas: 1
@@ -31,9 +33,12 @@ services:
         constraints: [node.role == manager]
 
 networks:
-  agent_network:
-    driver: overlay
-    attachable: true
+  net_ens18:
+    external: true
+    name: net_ens18
+  net_ens19:
+    external: true
+    name: net_ens19
 
 volumes:
   portainer_data:
