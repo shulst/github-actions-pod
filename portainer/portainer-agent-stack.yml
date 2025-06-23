@@ -20,7 +20,7 @@ services:
       - "9000:9000" # HTTP access (nginx will handle SSL)
 #      - "8000:8000" # for Edge agents
     volumes:
-      - portainer_data:/data
+      - /mnt/swarm-data/service/portainer:/data
     networks:
       - agent_network
     deploy:
@@ -37,11 +37,3 @@ networks:
   agent_network:
     driver: overlay
     attachable: true
-
-volumes:
-  portainer_data:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=192.168.5.111,rw,noatime,vers=3,tcp,timeo=600
-      device: ":/mnt/SnowflakePool/swarm/service/portainer"
