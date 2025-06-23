@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.8'
 
 services:
   agent:
@@ -17,14 +17,13 @@ services:
     image: portainer/portainer-ee:lts
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
-      - "9443:9443"
-      - "9000:9000"
-      - "8000:8000"
+#      - "9443:9443" # HTTPS access
+      - "9000:9000" # HTTP access (nginx will handle SSL)
+#      - "8000:8000" # for Edge agents
     volumes:
       - portainer_data:/data
     networks:
       - agent_network
-      - net_ens18
       - net_ens19
     deploy:
       mode: replicated
@@ -33,9 +32,9 @@ services:
         constraints: [node.role == manager]
 
 networks:
-  net_ens18:
-    external: true
-    name: net_ens18
+  agent_network:
+    driver: overlay
+    attachable: true
   net_ens19:
     external: true
     name: net_ens19
@@ -45,5 +44,5 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=192.168.5.111,rw,vers=3
+      o: addr=192.168.5.111,rw,noatime,vers=3,tcp,timeo=600
       device: ":/mnt/SnowflakePool/swarm/service/portainer"
