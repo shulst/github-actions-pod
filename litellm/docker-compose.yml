@@ -19,6 +19,7 @@ services:
       - DATABASE_URL=postgresql://litellm:litellm@postgres:5432/litellm
       - LITELLM_MASTER_KEY=sk-1234
       - LITELLM_SALT_KEY=sk-5678   # Optional, but recommended for encryption
+      - STORE_MODEL_IN_DB=true
     ports:
       - "4000:4000"
     depends_on:
