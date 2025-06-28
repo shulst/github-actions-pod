@@ -9,6 +9,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /mnt/swarm-data/service/nginx/etc:/etc/nginx
+#      - /mnt/swarm-data/service/nginx/etc:/etc/nginx
       - /mnt/swarm-data/service/nginx/logs:/var/log/nginx
       - /mnt/swarm-data/service/nginx/ssl:/etc/ssl
+      - /mnt/swarm-data/service/nginx/etc:/etc/site-enabled
