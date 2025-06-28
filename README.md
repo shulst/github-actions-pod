@@ -33,7 +33,15 @@ It runs the following containers:
  - trueNAS
  - snowflake-swarm-manager
  - snowflake-swarm-worker
- - snowflake-nginx
+ - snowflake-nginx --obsolete--
+
+### Nginx Proxy Manager
+
+Nginx Proxy Manager is running on the snowflake-swarm-manager. It is accessible from the local network on 192.168.2.11.
+It is configured to run on the following ports:
+ - 192.168.2.11:81 Admin UI
+ - 192.168.2.11:80 HTTP
+ - 192.168.2.11:443 HTTPS
 
 #### Network
 
@@ -47,6 +55,8 @@ The containers are accessible from the following IP addresses:
 - snowflake-swarm-worker
   - 192.168.2.20
   - 192.168.5.20
+
+The nginx servers are accessible from the following IP addresses, --obsolete--:
 - snowflake-nginx
   - 192.168.2.21
   - 192.168.5.21
