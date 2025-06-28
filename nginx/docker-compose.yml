@@ -12,6 +12,7 @@ services:
     volumes:
       - /mnt/swarm-data/service/nginx/manager-data:/data
       - /mnt/swarm-data/service/nginx/manager-letsencrypt:/etc/letsencrypt
+      - /mnt/swarm-data/service/nginx/logs:/var/log/nginx
     deploy:
       placement:
         constraints:
