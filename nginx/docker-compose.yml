@@ -26,8 +26,8 @@ services:
       - "8080:80"  # Optional: HTTP (change host port if 80 is in use)
       - "8443:443" # Optional: HTTPS (change host port if 443 is in use)
     volumes:
-      - ./npm-data:/data
-      - ./npm-letsencrypt:/etc/letsencrypt
+      - /mnt/swarm-data/service/nginx/manager-data:/data
+      - /mnt/swarm-data/service/nginx/manager-letsencrypt:/etc/letsencrypt
     deploy:
       placement:
         constraints:
