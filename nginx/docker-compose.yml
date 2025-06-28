@@ -16,3 +16,19 @@ services:
       placement:
         constraints:
           - node.role == manager
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "81:81"    # Admin UI
+      - "8080:80"  # Optional: HTTP (change host port if 80 is in use)
+      - "8443:443" # Optional: HTTPS (change host port if 443 is in use)
+    volumes:
+      - ./npm-data:/data
+      - ./npm-letsencrypt:/etc/letsencrypt
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
