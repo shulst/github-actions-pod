@@ -1,0 +1,14 @@
+version: '3.13'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /mnt/swarm-data/service/nginx/etc:/etc/nginx
+      - /mnt/swarm-data/service/nginx/logs:/var/log/nginx
+      - /mnt/swarm-data/service/nginx/ssl:/etc/ssl

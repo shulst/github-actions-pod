@@ -1,20 +1,28 @@
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
 upstream n8n {
     server 192.168.2.11:5678;
 }
 
-# Server block for nanny
 server {
     listen 80;
     server_name nanny;
 
     location / {
         proxy_pass http://n8n;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+
 server {
     listen 443 ssl;
     server_name nanny;
@@ -24,6 +32,9 @@ server {
 
     location / {
         proxy_pass http://n8n;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
