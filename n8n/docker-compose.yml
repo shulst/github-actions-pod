@@ -16,6 +16,7 @@ services:
       - DB_POSTGRESDB_PASSWORD_FILE=/run/secrets/postgres-n8n_password
       - NODE_FUNCTION_ALLOW_EXTERNAL=axios,qs
       - N8N_SECURE_COOKIE=false
+      - N8N_HOST=http://192.168.2.11
       - N8N_EDITOR_BASE_URL=http://192.168.2.11:5678
       - WEBHOOK_URL=http://192.168.2.11:5678
 
