@@ -1,6 +1,6 @@
 version: '3.13'
 services:
-  n8n:
+  agent:
     image: n8nio/n8n
     ports:
       - "5678:5678"
